@@ -7,12 +7,6 @@ plugins {
 group = "com.immaculate"
 version = "0.0.1-SNAPSHOT"
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(22)
-	}
-}
-
 configurations {
 	compileOnly {
 		extendsFrom(configurations.annotationProcessor.get())
@@ -34,6 +28,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testImplementation("org.mock-server:mockserver-netty:5.11.2")
+	testImplementation("org.mock-server:mockserver-client-java:5.11.2")
 }
 
 tasks.withType<Test> {
