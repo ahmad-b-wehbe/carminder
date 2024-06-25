@@ -2,16 +2,16 @@ package com.immaculate.carminder.registration.token;
 
 import com.immaculate.carminder.appuser.AppUser;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class ConfirmationToken {
 
     @Id
@@ -34,15 +34,4 @@ public class ConfirmationToken {
             name = "app_user_id"
     )
     private AppUser appUser;
-
-    public ConfirmationToken(String token,
-                             LocalDateTime createdAt,
-                             LocalDateTime expiresAt,
-                             AppUser appUser
-    ) {
-        this.token = token;
-        this.createdAt = createdAt;
-        this.expiresAt = expiresAt;
-        this.appUser = appUser;
-    }
 }

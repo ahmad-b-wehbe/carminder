@@ -51,6 +51,27 @@ public class RegistrationControllerIntegrationTest {
         client.verify(expectedRequest());
     }
 
+    @Test
+    @DisplayName("should confirm the token successfully")
+    void should_confirm_the_token_successfully() {
+        String url = "http://localhost:1080/api/v1/registration/confirm?token=tokenid";
+        String success_message = "Registration successful";
+
+        client.when(getConfirmTokenRequest()).respond(expectedResponse());
+
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(success_message, responseEntity.getBody());
+        client.verify(getConfirmTokenRequest());
+    }
+
+    private static org.mockserver.model.HttpRequest getConfirmTokenRequest() {
+        return request()
+                .withMethod("GET")
+                .withPath("/api/v1/registration/confirm");
+    }
+
     private static HttpEntity<RegistrationRequest> getHttpEntity(RegistrationRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

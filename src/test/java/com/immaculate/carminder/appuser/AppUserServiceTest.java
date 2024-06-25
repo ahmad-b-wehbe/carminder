@@ -1,5 +1,6 @@
 package com.immaculate.carminder.appuser;
 
+import com.immaculate.carminder.registration.token.ConfirmationTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,14 @@ class AppUserServiceTest {
     private UserRepository userRepository;
     private AppUserService appUserService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private ConfirmationTokenService confirmationTokenService;
 
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
         bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
-        appUserService = new AppUserService(userRepository, bCryptPasswordEncoder);
+        confirmationTokenService = mock(ConfirmationTokenService.class);
+        appUserService = new AppUserService(userRepository, bCryptPasswordEncoder, confirmationTokenService);
     }
 
     @Test
@@ -61,5 +64,25 @@ class AppUserServiceTest {
         when(bCryptPasswordEncoder.encode(appUser.getPassword())).thenReturn("encodedPassword");
         appUserService.signUpUser(appUser);
         verify(userRepository).save(appUser);
+    }
+
+    @Test
+    @DisplayName("should save confirmation token")
+    void should_save_confirmation_token() {
+        String email = "email";
+        AppUser appUser = mock(AppUser.class);
+        when(appUser.getEmail()).thenReturn(email);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+        when(bCryptPasswordEncoder.encode(appUser.getPassword())).thenReturn("encodedPassword");
+        appUserService.signUpUser(appUser);
+        verify(confirmationTokenService).saveConfirmationToken(any());
+    }
+
+    @Test
+    @DisplayName("should enable user")
+    void should_enable_user() {
+        String email = "email";
+        when(userRepository.enableAppUser(email)).thenReturn(1);
+        assertEquals(1, appUserService.enableAppUser(email));
     }
 }
