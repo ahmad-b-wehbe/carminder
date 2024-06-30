@@ -30,6 +30,8 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testImplementation("org.mock-server:mockserver-netty:5.11.2")
 	testImplementation("org.mock-server:mockserver-client-java:5.11.2")
+	testImplementation("org.testcontainers:junit-jupiter:1.18.3")
+	testImplementation("org.testcontainers:postgresql:1.18.3")
 }
 
 tasks.withType<Test> {
