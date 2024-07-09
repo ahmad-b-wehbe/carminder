@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,6 +28,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(getCorsConfiguration()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v*/registration/**").permitAll()
@@ -41,6 +46,13 @@ public class WebSecurityConfig {
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         return provider;
     }
+
+    private static CorsConfigurationSource getCorsConfiguration() {
+        return request -> {
+            CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+            configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+            configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+            return configuration;
+        };
+    }
 }
-
-
