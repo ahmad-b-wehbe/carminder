@@ -14,6 +14,7 @@ import java.util.Collections;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class AppUserEntity implements UserDetails {
 
     @Id
