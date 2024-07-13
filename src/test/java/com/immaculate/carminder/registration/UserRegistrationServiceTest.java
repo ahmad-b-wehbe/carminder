@@ -2,7 +2,7 @@ package com.immaculate.carminder.registration;
 
 import com.immaculate.carminder.core.auth.user.AppUser;
 import com.immaculate.carminder.core.auth.user.AppUserPersistenceManager;
-import com.immaculate.carminder.core.auth.user.UserRegistrationRequest;
+import com.immaculate.carminder.core.auth.user.requests.UserRegistrationRequest;
 import com.immaculate.carminder.core.auth.user.UserRegistrationService;
 import com.immaculate.carminder.core.auth.validators.EmailValidationService;
 import org.junit.jupiter.api.BeforeEach;

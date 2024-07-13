@@ -1,7 +1,7 @@
 package com.immaculate.carminder.api.mapper;
 
 import com.immaculate.carminder.api.requests.UserRegistrationApiRequest;
-import com.immaculate.carminder.core.auth.user.UserRegistrationRequest;
+import com.immaculate.carminder.core.auth.user.requests.UserRegistrationRequest;
 
 public class UserRegistrationRequestMapper {
     public static UserRegistrationRequest mapToDomain(UserRegistrationApiRequest request) {

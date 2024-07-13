@@ -1,4 +1,4 @@
-package com.immaculate.carminder.core.auth.user;
+package com.immaculate.carminder.core.auth.user.requests;
 
 import lombok.Builder;
 

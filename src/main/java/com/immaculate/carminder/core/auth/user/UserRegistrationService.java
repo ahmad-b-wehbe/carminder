@@ -1,8 +1,9 @@
 package com.immaculate.carminder.core.auth.user;
 
+import com.immaculate.carminder.core.auth.user.requests.UserRegistrationRequest;
 import com.immaculate.carminder.core.auth.validators.EmailValidationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserRegistrationService {
     private final EmailValidationService emailValidationService;
     private final AppUserPersistenceManager appUserPersistenceManager;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     public void register(UserRegistrationRequest request) {
         validateEmailFormat(request.email());
